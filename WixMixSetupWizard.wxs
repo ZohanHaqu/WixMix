@@ -1,0 +1,91 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="0C58532A-5096-4095-B115-EA8EC5599247" UpgradeCode="9FABDBD5-0E4E-40B9-9BA5-6A167D5CB97A" Version="1.0.0.0" Name="WixMix" Manufacturer="Zohan Haque" Language="1033">
+    <Package InstallerVersion="405" InstallScope="perMachine" InstallPrivileges="elevated" Compressed="yes" Manufacturer="Zohan Haque" />
+    <Media Cabinet="media1.cab" Id="1" EmbedCab="yes" />
+    <Icon Id="MyIcon" SourceFile="..\source\repos\WixMixIDE\WixMix\wixmix.ico" />
+    <WixVariable Id="WixUIDialogBmp" Value="WixMixSetup\WixMix.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="WixMixSetup\WixMixHeader.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="MIT License.rtf" />
+    <Property Id="ARPPRODUCTICON" Value="MyIcon" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="MenuAppFolder" Name="TheAppName" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="MyAppFolder" Name="WixMix" />
+      </Directory>
+    </Directory>
+
+    <ComponentGroup Id="RemoveFolders">
+      <ComponentRef Id="Remove.MenuAppFolder" />
+      <ComponentRef Id="Remove.ProgramFilesFolder" />
+    </ComponentGroup>
+
+    <ComponentGroup Id="WixMix">
+      <ComponentRef Id="CIdAB7A8B7A" />
+      <ComponentRef Id="CIdDFB85D96" />
+      <ComponentRef Id="CId2312C704" />
+    </ComponentGroup>
+
+    <!-- Add the missing components to a feature -->
+    <ComponentGroup Id="Shortcuts">
+      <ComponentRef Id="CSCId2E342C19" />
+      <ComponentRef Id="CSCId8042BA07" />
+    </ComponentGroup>
+
+    <Feature Id="ProductFeature" Title="WixMix" Description="Main WixMix Structure">
+      <ComponentGroupRef Id="RemoveFolders" />
+      <ComponentGroupRef Id="WixMix" />
+      <ComponentGroupRef Id="Shortcuts" />
+    </Feature>
+
+    <UIRef Id="WixUI_FeatureTree" />
+
+    <DirectoryRef Id="ProgramFilesFolder">
+      <Component Id="Remove.ProgramFilesFolder" Guid="225BC03B-4080-4D36-8584-974BD0DEA166" Win64="no">
+        <RemoveFolder Id="ProgramFilesFolder" On="uninstall" />
+        <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="MyAppFolder">
+      <Component Id="CId2312C704" Guid="4FEA90ED-08D6-462F-978B-59961E47E59F" Win64="no">
+        <File Id="FIdF17A2553" Name="WixMix.exe" Source="C:\Users\zohan\Downloads\WixMix\WixMix.exe" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CIdDFB85D96" Guid="5B9E49B6-90B2-4448-B7A8-007A9EC6BA5E" Win64="no">
+        <File Id="FId6143F81C" Name="WixMix.pdb" Source="C:\Users\zohan\Downloads\WixMix\WixMix.pdb" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CIdAB7A8B7A" Guid="24DEDA13-E848-4BA6-849E-BEF51EA8E49E" Win64="no">
+        <File Id="FIdC4EED885" Name="WixMix.exe.config" Source="C:\Users\zohan\Downloads\WixMix\WixMix.exe.config" />
+        <CreateFolder />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ProgramMenuFolder">
+      <Component Id="CSCId2E342C19" Guid="2F51CC72-84BC-432E-9096-022F8FF478F9" Win64="no">
+        <Shortcut Id="SId30496F1F" Name="WixMix" Target="[MyAppFolder]WixMix.exe" WorkingDirectory="MyAppFolder" Icon="MyIcon" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="CSCId2E342C19" Directory="ProgramMenuFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="MenuAppFolder">
+      <Component Id="Remove.MenuAppFolder" Guid="8708BC66-D02F-4F5B-B684-92F086F70D64">
+        <RemoveFolder Id="MenuAppFolder" On="uninstall" />
+        <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="CSCId8042BA07" Guid="125011B8-27D4-482E-BD9D-1F2951D28F64" Win64="no">
+        <Shortcut Id="SId687CE581" Name="WixMix" Target="[MyAppFolder]WixMix.exe" WorkingDirectory="MyAppFolder" Icon="MyIcon" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="CSCId8042BA07" Directory="DesktopFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+  </Product>
+</Wix>
