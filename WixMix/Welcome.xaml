@@ -1,0 +1,15 @@
+﻿<Window x:Class="WixMix.Welcome"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WixMix"
+        mc:Ignorable="d"
+        Title="Welcome" Height="450" Width="800"
+        ResizeMode="NoResize">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="129" VerticalAlignment="Top" Width="1024" Source="C:/Users/zohan/downloads/Untitled422_20250226183845.png" Margin="206,0,0,0"/>
+        <WebBrowser Margin="0,134,0,10" Source="c:/users/zohan/downloads/welcome.html"/>
+    </Grid>
+</Window>
+
